@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>NFCrew · 船员编队 · 控制面板</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<div id="loginBox" style="position:fixed;inset:0;background:rgba(6,8,12,.94);display:none;align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#141821;border:1px solid #2a3242;border-radius:12px;padding:24px;width:360px;font:14px/1.6 system-ui,sans-serif;color:#cfd6e4">
+    <div style="font-weight:600;margin-bottom:8px">NFCrew · 船员编队 · 控制面板</div>
+    <div style="color:#8894a8;margin-bottom:12px">输入你的账号令牌（<code>tenants.json</code> 里每个账号一条）。</div>
+    <input id="loginToken" type="password" autocomplete="off" placeholder="32 位十六进制令牌" style="width:100%;padding:8px;border-radius:8px;border:1px solid #2a3242;background:#0d1117;color:#dfe6f2;box-sizing:border-box">
+    <button onclick="submitLogin()" style="margin-top:12px;width:100%;padding:8px;border-radius:8px;border:0;background:#3b82f6;color:#fff;cursor:pointer">登录</button>
+  </div>
+</div>
+<header>
+  <h1>NFCrew · 船员编队</h1>
+  <span class="badge" id="settleMode">结算方式…</span>
+  <span class="badge off" id="conn">连接中…</span>
+</header>
+<nav class="tabs">
+  <button id="tabCommand" class="tab active" onclick="showTab('command')">指挥</button>
+  <button id="tabStock" class="tab" onclick="showTab('stock')">召唤仓库</button>
+  <button id="tabFit" class="tab" onclick="showTab('fit')">配装台</button>
+  <button id="tabSettings" class="tab" onclick="showTab('settings')">设置</button>
+</nav>
+<div id="versionWarn" class="versionWarn" hidden></div>
+<section id="settingsPane" class="stockWindow" hidden>
+  <div class="stockHead">
+    <b>设置</b>
+    <span class="muted">这些开关都写进全部蓝图，重启后保持</span>
+  </div>
+  <div class="settingBox" style="display:flex;gap:18px;flex-wrap:wrap;border:0;background:none;padding:0">
+    <label><input type="checkbox" id="salvoToggle" onchange="setModeField('weaponSalvo', this.checked)"> 齐射结算（性能）</label>
+    <label><input type="checkbox" id="npcToggle" onchange="setModeField('npcMode', this.checked)"> NPC 模式（不激活模块）</label>
+    <label><input type="checkbox" id="debugToggle" onchange="setDebugMode(this.checked)"> 调试日志</label>
+    <span class="muted">火力集中：</span>
+    <button onclick="cmd('focus on')" title="解除每拍 3 艘的齐射轮转（人多会卡）">开</button>
+    <button onclick="cmd('focus off')">关</button>
+  </div>
+  <div class="muted" id="cfg"></div>
+</section>
+<main style="display:flex;gap:12px;align-items:flex-start;width:100%;overflow-x:auto">
+<div id="leftPane" style="flex:0 0 780px;min-width:420px">
+  <div class="bar">
+    <span class="muted">蓝图：</span><select id="preset"></select>
+    <button class="primary" onclick="spawnCrew()">召唤</button>
+    <button class="danger" onclick="deletePreset()" title="删除当前选中的蓝图文件（configs/*.json）">删除蓝图</button>
+    <select id="spawnCount" title="一次召唤几个">
+      <option value="1">×1</option><option value="4">×4</option><option value="8">×8</option>
+    </select>
+    <button id="fleetJoinAll" onclick="cmd('fleet join all')">全部加入舰队</button>
+    <span class="modeSwitch">
+      <button id="modeMine" class="modeBtn" onclick="setUiMode('mine')">作业</button>
+      <button id="modeFight" class="modeBtn" onclick="setUiMode('fight')">作战</button>
+      <button id="modeSpecial" class="modeBtn" onclick="setUiMode('special')">特殊</button>
+    </span>
+    <!-- 编队/跟随不是作战专属，作业模式下也要用，所以单独常驻一行（三层布局的“参数”层）。 -->
+    <span id="formationBar">
+      <span class="fgGroup">
+        <span class="fgTitle">编队</span>
+        <label class="fgField">阵型
+          <select id="followFormation" onchange="setFollowFormation(this.value)"
+                  title="静止 = 不动（等命令）；跟随 = 所有船跟你保持同一个间距（引擎 FOLLOW）；阶梯 = 按间距依次外扩；环形 = 同一圈，250 ms 自写刹车">
+            <option value="idle">静止（不动）</option>
+            <option value="follow">跟随（同一距离）</option>
+            <option value="ladder">同心环（距离递增）</option>
+            <option value="ring">环形（同一圈）</option>
+          </select>
+        </label>
+        <label class="fgField">间距
+          <select id="followDist" onchange="orderFollow()"
+                  title="表面间距（模型到模型）：跟随/阶梯的基准距离 / 环形的圈半径。选「未设置」= 不移动">
+            <option value="0">0 m（贴住）</option>
+            <option value="50">50 m</option>
+            <option value="100" selected>100 m</option>
+            <option value="200">200 m</option>
+            <option value="300">300 m</option>
+            <option value="400">400 m</option>
+            <option value="500">500 m</option>
+            <option value="600">600 m</option>
+            <option value="700">700 m</option>
+            <option value="800">800 m</option>
+            <option value="900">900 m</option>
+            <option value="1000">1000 m</option>
+            <option value="-1">未设置（不移动）</option>
+          </select>
+        </label>
+        <label class="fgField" id="spacingField">每艘递增
+          <input id="crewSpacing" type="number" min="0" max="5000" step="50" value="100"
+                 title="阶梯专用：第 n 艘 = 间距 + (n-1) × 步长。跟随/环形不用（会灰掉）" style="width:74px">
+        </label>
+        <button onclick="applyCrewSpacing()" title="把输入框里的数字存下来（只影响同心环模式的间距递增）">保存步长</button>
+      </span>
+      <span class="fgSep"></span>
+      <span class="fgGroup">
+        <span class="fgTitle">动作</span>
+        <button onclick="cmd('halt')"
+                title="停船：让在役船员原地减速停住，并回到「静止」。跟队跃迁不受影响。">停船</button>
+        <button id="syncBtn" onclick="toggleSyncWarp()" title="跟队跃迁：你按跃迁时，船员同一拍开始对准（独立系统，不受阵型影响）">跟队跃迁：关</button>
+      </span>
+    </span>
+    <span id="formationState"><span class="muted">状态：</span><span id="range">—</span></span>
+    <span id="mineBar">
+      <button id="mineAll" onclick="cmd('mine all')">全部开始采矿</button>
+      <button onclick="cmd('mine all off')">全部停止采矿</button>
+      <button class="primary" onclick="cmd('deliver all')">全部回收矿物</button>
+    </span>
+    <span id="fightBar" style="display:none">
+      <button id="freeFireAll" onclick="toggleFreeFire()" title="开启后船员会自动锁定附近敌对并开火">自由开火</button>
+      <button id="focusFireBtn" onclick="toggleFocusFire()"
+              title="火力集中：打开后本拍所有冷却好的船一起结算（解除每拍 3 艘的轮转）。人越多越卡；安全阀 focusFireMaxTickMs 会兜底">火力集中：关</button>
+      <button id="fullAuthority" onclick="toggleFullAuthority()" title="授权末日武器：冷却结束自动发射">末日武器授权</button>
+      <button id="chaseToggle" onclick="toggleChase()" title="打不到（射程外）时主动靠近目标">追击</button>
+      <select id="engageRule" onchange="setEngageRule(this.value)" title="交战规则（决定船员会打谁）">
+        <option value="npc">交战规则：只打 NPC</option>
+        <option value="defend">交战规则：挨打还手</option>
+        <option value="war">交战规则：只打宣战</option>
+      </select>
+      <button class="danger" onclick="cmd('stop all')">全部停火</button>
+    </span>
+    <span id="specialBar" style="display:none">
+      <button onclick="setSpecialAll('all',true)" title="每人开启自己装的那种特殊装备">全体开启模块</button>
+      <button onclick="setSpecialAll('all',false)">全部关闭</button>
+      <span id="specialKindBtns"></span>
+    </span>
+    <button id="recallAll" onclick="cmd('recall all')">全部召回</button>
+    <button class="danger" onclick="if(confirm('确认解散全部船员？'))cmd('disband all confirm')">解散全部</button>
+    <button onclick="cmd('status')">立即刷新状态</button>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <div class="bar" style="margin-bottom:8px">
+      <button onclick="toggleFittings()" title="展开/收起">▸</button> <b>帐号装配方案</b>
+      <span class="muted" id="fitCount"></span>
+      <input id="fitSearch" placeholder="搜索方案 / 舰船 / 文件" oninput="fitPage=0;try{localStorage.setItem('nfFitQ',this.value)}catch(e){}renderFittings()" style="background:#232a34;color:#dbe3ee;border:1px solid #333d4b;border-radius:6px;padding:8px 12px;font-size:15px;min-width:240px"><button onclick="loadFittings()">重新扫描</button>
+    </div>
+    <div id="fitBody" style="display:none"><table><thead><tr><th>方案</th><th>舰船类型ID</th><th>槽位</th><th>操作</th></tr></thead>
+    <tbody id="fittingList"><tr><td colspan="4" class="muted">点「重新扫描」读取服务端已保存的装配</td></tr></tbody></table><div class="bar" style="margin-top:8px;align-items:center"><button onclick="fitPage=Math.max(0,fitPage-1);renderFittings()">上一页</button><span class="muted" id="fitPageInfo"></span><button onclick="fitPage=fitPage+1;renderFittings()">下一页</button></div></div>
+  </div>
+
+  <div class="gridCards" id="rows"><div class="muted">加载中…</div></div>
+  <div class="card" style="margin-top:14px">
+    <div class="bar" style="margin-bottom:6px"><b>船员日志 (crew.log)</b>
+      <span class="muted" id="crewLogInfo">实时</span>
+      <button onclick="resetCrewLog()">从头加载日志</button>
+      <button onclick="document.getElementById('crewLogView').textContent=''">清空显示</button>
+      <button onclick="pruneLogs(3)" title="删掉 3 天以前的日志行与轮转文件">清理 3 天前日志</button>
+      <button class="danger" onclick="clearAllLogs()" title="把 crew.log 清空并删除所有轮转文件">清理所有日志</button></div>
+    <div id="crewLogView" style="max-height:320px;overflow:auto;font:12px/1.45 Consolas,monospace;white-space:pre-wrap;color:#c9d4e2"></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+  <div class="bar" style="margin-bottom:6px"><b>运行日志</b>
+    <button onclick="document.getElementById('log').innerHTML=''">清空显示</button></div>
+  <div id="log" style="max-height:260px;overflow:auto;font:13px/1.5 Consolas,monospace;white-space:pre-wrap"></div>
+</div>
+</div>
+<div id="splitterLeft" title="拖动调整左侧宽度"></div>
+<div id="rightRail" style="flex:1 1 auto;position:sticky;top:78px;min-width:260px">
+  <div id="detailPane"><div class="card"><div class="muted">点左侧船员查看详情</div></div></div>
+</div>
+<div id="splitter" title="拖动调整宽度"></div>
+<div id="mapRail" style="flex:0 0 212px;position:sticky;top:78px">
+  <div class="card" id="mapCard" style="display:flex;flex-direction:column;height:300px">
+    <div class="muted" style="margin-bottom:4px">编队（最远 60 km，蓝点=你）</div>
+    <svg id="miniMap" viewBox="0 0 180 180" preserveAspectRatio="xMidYMid meet" style="display:block;margin:0 auto;flex:1 1 auto;width:100%;height:100%;min-height:0"></svg>
+  </div>
+  <div id="mapHandle" title="拖动调整地图高度（上下）"></div>
+</div>
+</main>
+
+<section id="stockPane" class="stockWindow" hidden>
+  <div class="stockHead">
+    <b>召唤仓库</b>
+    <span class="muted">仓库：<span id="stockWarehouse">—</span></span>
+    <span class="muted">余额：<span id="stockBalance">—</span></span>
+    <span class="muted" id="stockCounts"></span>
+    <span style="flex:1"></span>
+    <button id="planToggleBtn" onclick="togglePlanPane()" title="按方案批量召唤：查看方案里具体有哪些船">召唤方案</button>
+    <button id="hangarToggleBtn" onclick="toggleHangarPane()" title="列出你在吉他 4-4 机库里的船，逐艘选择转入">转入机库船</button>
+    <button id="stockToggle" onclick="toggleStockEnabled()">库存：—</button>
+    <button onclick="stockReconcile()" title="按物品表修正账本：爆了标丢失、跑偏的停回 4-4">对账</button>
+    <button onclick="loadStock();">刷新</button>
+  </div>
+
+  <div id="hangarPane" class="hangarPane" hidden>
+    <div class="hangarHead">
+      <b>吉他 4-4 机库</b>
+      <span class="muted" id="hangarInfo">加载中…</span>
+      <span style="flex:1"></span>
+      <button class="primary" onclick="depositHangarSelected()">转入选中</button>
+      <button onclick="depositHangarAll()">全部转入</button>
+      <button onclick="toggleHangarPane()">关闭</button>
+    </div>
+    <div id="hangarList" class="gridCards"></div>
+  </div>
+
+  <div id="planPane" class="hangarPane" hidden>
+    <div class="hangarHead">
+      <b>召唤方案</b>
+      <span class="muted" id="planInfo"></span>
+      <span style="flex:1"></span>
+      <button class="primary" onclick="togglePlanPane()">返回仓库</button>
+    </div>
+    <div id="planBody"></div>
+  </div>
+
+  <div id="stockMainView">
+  <div class="stockBar">
+    <input id="stockSearch" placeholder="搜索：名字 / ID / 状态" style="width:190px" oninput="stockSearchChanged()">
+    <select id="stockPageSize" onchange="stockPageSizeChanged()" title="每页条数">
+      <option value="20">20/页</option><option value="50">50/页</option><option value="100">100/页</option>
+    </select>
+    <button id="stockAllBtn" onclick="toggleAllShips()" title="点卡片选中/取消；在用=蓝、丢失=红">全选本页</button>
+    <span class="muted" id="stockSelCount">0 选中</span>
+    <button class="primary" onclick="stockSummonSelected()">召唤选中</button>
+    <button onclick="stockSellSelected()" title="只对购入的船生效（按实付价退）">卖出</button>
+    <button onclick="stockWithdrawSelected()">取出到 4-4</button>
+    <span class="stockBarDivider"></span>
+    <input id="planName" placeholder="方案名" style="width:130px">
+    <button onclick="createPlan()" title="把当前勾选的船存成一个召唤方案">创建召唤方案</button>
+    <button onclick="togglePlanPane()" title="查看/召唤已有方案">方案列表</button>
+  </div>
+
+  <div class="stockBuy">
+    <span class="muted">按 80% 卖价订货：</span>
+    <select id="stockPreset"></select>
+    <select id="stockBuyCount">
+      <option value="1">×1</option><option value="2">×2</option><option value="3">×3</option>
+      <option value="5">×5</option><option value="8">×8</option><option value="10">×10</option>
+    </select>
+    <button class="primary" onclick="stockBuy()">订货入库</button>
+    <span class="muted" id="stockBuyMsg"></span>
+  </div>
+
+  <div class="gridCards" id="stockRows"><div class="muted">加载中…</div></div>
+
+  <div class="stockPager">
+    <button onclick="stockPage(-1)">上一页</button>
+    <span class="muted" id="stockPageInfo">—</span>
+    <button onclick="stockPage(1)">下一页</button>
+  </div>
+
+  </div>
+  </div>
+</section>
+
+<section id="fitPane" class="stockWindow" hidden>
+  <div class="stockHead">
+    <b>配装台</b>
+    <span class="muted">船体</span>
+    <span class="nfSelect" id="fitHullSelect" style="min-width:300px;flex:1 1 260px">
+      <div class="nfSelectButton" onclick="toggleSelect(this)">
+        <span class="nfSelectValue">选择船体…</span><span class="nfCaret">▾</span>
+      </div>
+      <div class="nfSelectPanel" hidden>
+        <input class="nfSelectSearch" placeholder="搜索船体…" autocomplete="off" oninput="filterSelect(this)" onkeydown="selectKey(event,this)">
+        <div class="nfSelectList"></div>
+      </div>
+    </span>
+    <span class="muted">数量</span>
+    <select id="fitCount" onchange="fitChanged()">
+      <option value="1">×1</option><option value="2">×2</option><option value="3">×3</option><option value="5">×5</option>
+    </select>
+    <span style="flex:1"></span>
+    <button class="primary" onclick="fitOrder()">订购（80% 价）</button>
+    <button onclick="fitSaveBlueprint()">存为配装</button>
+    <button onclick="fitReset()">清空</button>
+  </div>
+  <div class="fitToolbar">
+    <label class="muted"><input type="checkbox" id="fitAllV" checked onchange="renderFitSlots(); fitChanged()"> 技能全 V（Electronics/Engineering +25%，CPU/PG 需求 -25%）</label>
+    <label class="muted"><input type="checkbox" id="fitOnlyFittable" checked onchange="renderFitSlots()"> 只看装得下的（CPU/PG/尺寸）</label>
+    <button type="button" onclick="reloadFitModules()" title="清掉页面缓存，重新向服务端要模块列表（服务端升级/索引重建后点这个）">重新加载模块</button>
+    <span class="muted" id="fitFilterInfo"></span>
+  </div>
+  <div id="fitSummary" class="fitSummaryBar muted">选一艘船体开始配装</div>
+  <div id="fitSlots" class="fitSlots"><div class="muted">选一艘船体开始配装</div></div>
+  <div class="stockBuy">
+    <span class="muted">无人机</span>
+    <select id="fitDrone" onchange="fitChanged()" style="min-width:200px"></select>
+    <span class="muted">数量</span>
+    <input id="fitDroneQty" type="number" min="0" max="50" value="0" style="width:64px" onchange="fitChanged()">
+    <span class="muted" style="margin-left:12px">无人机/弹药不计价（按口径），但实物随船</span>
+  </div>
+  <div id="fitMsg" class="muted"></div>
+</section>
+
+<footer class="muted" style="padding:8px 20px">仅本机可访问 · 127.0.0.1:8741</footer>
+<script src="app.js"></script>
+</body>
+</html>

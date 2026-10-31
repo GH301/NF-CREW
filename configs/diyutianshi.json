@@ -1,0 +1,192 @@
+{
+  "id": "diyutianshi",
+  "name": "diyutianshi",
+  "enabled": true,
+  "count": 1,
+  "job": "mining",
+  "skills": "all",
+  "corporation": "auto",
+  "wing": null,
+  "squad": null,
+  "autoMineOnSpawn": false,
+  "fit": {
+    "source": "inline",
+    "hull": {
+      "typeID": 24692,
+      "name": "Abaddon"
+    },
+    "modules": [
+      {
+        "slot": "hi slot 0",
+        "flagID": 27,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 2",
+        "flagID": 13,
+        "typeID": 20353,
+        "name": "1600mm Steel Plates II",
+        "quantity": 1
+      },
+      {
+        "slot": "cargo slot 22",
+        "flagID": 22,
+        "typeID": 5051,
+        "name": "Heavy F-RX Compact Capacitor Booster",
+        "quantity": 1
+      },
+      {
+        "slot": "med slot 2",
+        "flagID": 21,
+        "typeID": 41054,
+        "name": "Heavy Gunnar Compact Stasis Grappler",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 1",
+        "flagID": 28,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 4",
+        "flagID": 15,
+        "typeID": 11269,
+        "name": "Multispectrum Energized Membrane II",
+        "quantity": 1
+      },
+      {
+        "slot": "med slot 1",
+        "flagID": 20,
+        "typeID": 5445,
+        "name": "Initiated Compact Warp Scrambler",
+        "quantity": 1
+      },
+      {
+        "slot": "med slot 0",
+        "flagID": 19,
+        "typeID": 35661,
+        "name": "500MN Y-T8 Compact Microwarpdrive",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 2",
+        "flagID": 29,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 1",
+        "flagID": 93,
+        "typeID": 25894,
+        "name": "Large Trimark Armor Pump I",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 0",
+        "flagID": 92,
+        "typeID": 25894,
+        "name": "Large Trimark Armor Pump I",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 4",
+        "flagID": 31,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 6",
+        "flagID": 17,
+        "typeID": 2364,
+        "name": "Heat Sink II",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 5",
+        "flagID": 32,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 0",
+        "flagID": 11,
+        "typeID": 2364,
+        "name": "Heat Sink II",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 2",
+        "flagID": 94,
+        "typeID": 25894,
+        "name": "Large Trimark Armor Pump I",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 3",
+        "flagID": 14,
+        "typeID": 20353,
+        "name": "1600mm Steel Plates II",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 6",
+        "flagID": 33,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 5",
+        "flagID": 16,
+        "typeID": 2048,
+        "name": "Damage Control II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 1",
+        "flagID": 12,
+        "typeID": 20353,
+        "name": "1600mm Steel Plates II",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 7",
+        "flagID": 34,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 3",
+        "flagID": 30,
+        "typeID": 3057,
+        "name": "Mega Pulse Laser II",
+        "quantity": 1
+      },
+      {
+        "slot": "cargo slot 5",
+        "flagID": 5,
+        "typeID": 12816,
+        "name": "Conflagration L",
+        "quantity": 50
+      },
+      {
+        "slot": "cargo slot 5",
+        "flagID": 5,
+        "typeID": 32014,
+        "name": "Navy Cap Booster 800",
+        "quantity": 25
+      }
+    ]
+  },
+  "behavior": {
+    "npcMode": false
+  }
+}

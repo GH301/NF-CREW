@@ -1,0 +1,113 @@
+{
+  "id": "covetor-ore",
+  "name": "*挖矿",
+  "enabled": true,
+  "count": 3,
+  "job": "mining",
+  "skills": "all",
+  "corporation": "auto",
+  "wing": null,
+  "squad": null,
+  "autoMineOnSpawn": false,
+  "fit": {
+    "source": "inline",
+    "hull": {
+      "typeID": 17476,
+      "name": "妄想级"
+    },
+    "modules": [
+      {
+        "slot": "hi slot 0",
+        "flagID": 27,
+        "typeID": 28754,
+        "name": "外空联合矿业露天采矿器",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 1",
+        "flagID": 93,
+        "typeID": 31796,
+        "name": "中型核心防御力场扩张装置 II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 1",
+        "flagID": 12,
+        "typeID": 93906,
+        "name": "菲尔米尔的改良型采矿激光器提升器",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 0",
+        "flagID": 11,
+        "typeID": 93906,
+        "name": "菲尔米尔的改良型采矿激光器提升器",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 0",
+        "flagID": 92,
+        "typeID": 31796,
+        "name": "中型核心防御力场扩张装置 II",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 2",
+        "flagID": 13,
+        "typeID": 93906,
+        "name": "菲尔米尔的改良型采矿激光器提升器",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 2",
+        "flagID": 94,
+        "typeID": 31796,
+        "name": "中型核心防御力场扩张装置 II",
+        "quantity": 1
+      },
+      {
+        "slot": "med slot 0",
+        "flagID": 19,
+        "typeID": 6001,
+        "name": "Y-S8紧凑型1MN加力燃烧器",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 1",
+        "flagID": 28,
+        "typeID": 28754,
+        "name": "外空联合矿业露天采矿器",
+        "quantity": 1
+      }
+    ],
+    "drones": [
+      {
+        "slot": "drone bay",
+        "flagID": 87,
+        "typeID": 3218,
+        "name": "收割者采矿无人机",
+        "quantity": 5
+      }
+    ]
+  },
+  "charges": [],
+  "behavior": {
+    "compressOnCycle": true,
+    "compressThrottleMs": 10000,
+    "followRangeMeters": 1000,
+    "mineSearchRadiusMeters": 150000,
+    "deliverWithinMeters": 5000,
+    "deliverStopPercent": 30,
+    "deliverResumePercent": 20,
+    "drones": {
+      "launch": "auto",
+      "mode": "mining",
+      "maxActive": 0,
+      "recallBeforeWarp": true,
+      "recallWhenIdle": true
+    },
+    "syncWarp": false,
+    "npcMode": false
+  },
+  "sourceFile": "covetor-ore.json"
+}

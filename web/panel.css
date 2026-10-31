@@ -1,0 +1,246 @@
+ :root{--bg:#14171c;--panel:#1a1f26;--line:#2b3240;--text:#d8dee8;--muted:#8b96a5;
+       --ok:#6fcf97;--warn:#e2b93b;--bad:#e06c75;--accent:#2f6f4f}
+ *{box-sizing:border-box}
+ body{font:16px/1.6 "Segoe UI",system-ui,sans-serif;margin:0;background:var(--bg);color:var(--text)}
+ header{padding:18px 28px;background:#1b2028;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+ h1{font-size:20px;margin:0;font-weight:600}
+ .muted{color:var(--muted);font-size:14px}
+ main{padding:18px 22px;max-width:none;width:auto}
+ .bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center}
+ button{background:#232a34;color:#dbe3ee;border:1px solid #333d4b;border-radius:6px;padding:9px 16px;cursor:pointer;font-size:15px}
+ button:hover{background:#2b3440}
+ button.primary{background:var(--accent);border-color:#3c8a63}
+ button.danger{background:#5a2b2b;border-color:#7a3a3a}
+ button:disabled{opacity:.45;cursor:not-allowed}
+ select{background:#232a34;color:#dbe3ee;border:1px solid #333d4b;border-radius:6px;padding:9px 14px;font-size:15px}
+ .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:14px}
+ .track{height:10px;background:#252c36;border-radius:6px;overflow:hidden;margin:6px 0}
+ .fill{height:100%;background:linear-gradient(90deg,#3ba3b8,#47c1a8)}
+ table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+ th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #232a34;font-size:15px;vertical-align:middle}
+ th{background:#20262f;color:#9fb0c4;font-weight:600}
+ tr:last-child td{border-bottom:none}
+ .ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+ td.ops button{padding:5px 11px;font-size:13px;margin-right:6px}
+ #reply{min-height:20px}
+ .modeBadge{display:inline-block;padding:0 6px;border-radius:999px;font-size:11px;border:1px solid transparent}
+ .modeBadge.player{background:#222a33;color:#9aa4b2;border-color:#3a424c}
+ .modeBadge.npc{background:#2a2338;color:#c9a6ff;border-color:#5b4a7a}
+ .modeSwitch{display:inline-flex;gap:0;border:1px solid #3a424c;border-radius:6px;overflow:hidden}
+ .modeBtn{background:transparent;border:0;border-radius:0;padding:5px 12px}
+ .modeBtn.modeOn{background:#2f6f4f;color:#eaf7ef;font-weight:600}
+ #mapHandle{height:9px;margin-top:6px;border-radius:4px;cursor:row-resize;
+   background:repeating-linear-gradient(90deg,#2b3240 0 10px,#3a424c 10px 20px)}
+ #mapHandle:hover{background:#4a5563}
+ .warnBadge{display:inline-block;padding:0 6px;border-radius:999px;font-size:11px;
+   background:#3a2326;color:#f0a0a8;border:1px solid #7a3a3a;margin-left:4px}
+ .warnRow{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
+ .quickRow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+ .quickRow button{padding:4px 9px;font-size:12px}
+ /* equipment cards */
+ .slotBlock{margin-top:6px}
+ .slotHead{font-size:12px;color:var(--muted);margin-bottom:3px}
+ .eqWrap{display:flex;flex-wrap:wrap;gap:6px}
+ .eq{display:inline-flex;flex-direction:column;gap:1px;padding:4px 8px;border-radius:6px;
+     border:1px solid transparent;font-size:13px;line-height:1.35;max-width:100%}
+ .eq-on{background:#1e3b2c;color:#b9f0c9;border-color:#2f6f4f}
+ .eq-off{background:#2a2f36;color:#9aa4b2;border-color:#3a424c}
+ .eq-active{border-color:#e06c75;box-shadow:0 0 0 1px #e06c75 inset}
+.eq-passive{border-color:#4aa3c7;box-shadow:0 0 0 1px #4aa3c7 inset}
+ .eqTag{font-size:11px;color:var(--muted);opacity:.9}
+ /* resizable right rail */
+ #splitter,#splitterLeft{flex:0 0 8px;cursor:col-resize;align-self:stretch;border-radius:4px;
+   background:repeating-linear-gradient(180deg,#2b3240 0 10px,#3a424c 10px 20px)}
+ #splitter:hover,#splitterLeft:hover{background:#4a5563}
+ /* compact detail rail */
+ #rightRail .card{padding:10px 12px}
+ #rightRail .track{height:7px;margin:4px 0 8px}
+ .fitGrid{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+ .slotRow{display:flex;flex-wrap:wrap;align-items:center;gap:2px;font-size:13px;line-height:1.7}
+ .slotTag{display:inline-block;min-width:44px;color:var(--muted);font-size:12px;margin-right:4px}
+ .mod{padding:1px 6px;border-radius:4px;border:1px solid transparent}
+ .mod.active{background:#1f3d2b;border-color:#2f6f4f;color:#8ef0b0;font-weight:600}
+ /* polish */
+ header{position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
+ tbody tr:nth-child(even){background:#1d232b}
+ tbody tr:hover{background:#232b35}
+ td{transition:background .12s}
+ .badge{font-size:13px;padding:2px 9px;border-radius:999px;border:1px solid #333d4b}
+ .badge.on{color:#6fcf97;border-color:#2f6f4f;background:#1b2b23}
+ .badge.off{color:#e06c75;border-color:#7a3a3a;background:#2b1b1b}
+ .empty{padding:26px 10px;text-align:center;color:var(--muted)}
+ td.num{font-variant-numeric:tabular-nums}
+ @media (max-width:820px){ body{font-size:15px} main{padding:14px} th,td{padding:9px 8px} }
+ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #47c1a8;outline-offset:1px}
+ /* P2: 设置抽屉 + 行内 ⋯ 菜单 */
+ .settingBox{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#1a2230;border:1px solid #2b3240;border-radius:8px;padding:10px 14px;margin:0 0 12px;font-size:14px}
+ .settingBox[hidden]{display:none}
+ .settingBox label{display:flex;gap:6px;align-items:center;cursor:pointer;color:var(--muted)}
+ .opsMenu{position:relative;display:inline-block;margin-right:6px}
+ /* 展开菜单放在 body 上并 fixed 定位：table{overflow:hidden} 与 main{overflow-x:auto}
+    都会裁掉绝对定位的子元素，只有 portal 才能永远显示在最上层。 */
+ .opsMenuLayer{position:fixed;z-index:9999;background:#20262f;border:1px solid #333d4b;border-radius:8px;
+   padding:6px;display:flex;flex-direction:column;gap:4px;min-width:140px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+ .opsMenuLayer button{width:100%;text-align:left;padding:6px 10px;font-size:13px;margin:0}
+ .opsMenu>div{position:absolute;right:0;top:112%;z-index:30;background:#20262f;border:1px solid #333d4b;border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:4px;min-width:132px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
+ .opsMenu>div[hidden]{display:none}
+ .opsMenu button{width:100%;text-align:left;padding:6px 10px;font-size:13px;margin:0}
+ .fuelTag{font-size:12px;color:#9fb0c4}
+ .modeCol{white-space:nowrap}
+
+/* 编队条：和模式无关的第二层。
+   0.6.8 按语义分组：左边「编队参数」（阵型/间距/步长），右边「动作」（停船/跟队跃迁），
+   状态另起一行 —— 以前所有控件挤成一排、没有文字标签，看起来像"一个下拉栏"。 */
+#formationBar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;
+  flex:1 1 100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:#1a2230}
+#formationBar button{padding:6px 12px;font-size:14px}
+#formationBar select,#formationBar input{padding:6px 10px;font-size:14px;background:#232a34;
+  color:#dbe3ee;border:1px solid #333d4b;border-radius:6px}
+#formationBar input:disabled,#formationBar select:disabled{opacity:.4;cursor:not-allowed}
+/* 一组参数：标题 + 若干「标签 + 控件」 */
+#formationBar .fgGroup{display:inline-flex;flex-wrap:wrap;gap:10px;align-items:center}
+#formationBar .fgTitle{font-size:13px;color:#8894a8;letter-spacing:1px;padding-right:2px}
+#formationBar .fgField{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:#aab6c8}
+#formationBar .fgField select,#formationBar .fgField input{font-size:14px}
+/* 分隔线：参数区 | 动作区 */
+#formationBar .fgSep{width:1px;align-self:stretch;min-height:22px;background:#2a3242;margin:0 2px}
+/* 状态单独一行（静止 / 环形缺少间距 / 表面间距 N m） */
+#formationState{display:block;flex:1 1 100%;margin:-4px 0 10px;font-size:13px;color:#aab6c8}
+#formationState #range{color:#dbe3ee}
+/* ---- P2：召唤仓库窗口 ---- */
+[hidden]{display:none !important}
+.tabs{display:flex;gap:8px;padding:8px 20px;border-bottom:1px solid #222a38}
+.tab{background:#141821;border:1px solid #2a3242;color:#cfd6e4;border-radius:8px;padding:6px 14px;cursor:pointer;font:13px system-ui,sans-serif}
+.tab.active{background:#2563eb;border-color:#2563eb;color:#fff}
+.stockWindow{padding:12px 20px;display:flex;flex-direction:column;gap:10px;width:100%}
+.stockHead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.stockBar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.stockBuy{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#141821;border:1px solid #2a3242;border-radius:10px;padding:8px 12px}
+#stockTable{width:100%;border-collapse:collapse;font-size:13px}
+#stockTable th,#stockTable td{border-bottom:1px solid #222a38;padding:6px 8px;text-align:left}
+#stockTable thead th{color:#8894a8;font-weight:500}
+.stockPager{display:flex;align-items:center;gap:10px}
+.stockPlans{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid #222a38;padding-top:10px}
+.planList{display:flex;flex-direction:column;gap:6px;width:100%}
+.planRow{display:flex;align-items:center;gap:8px}
+
+/* ---- P3：配装台 ---- */
+.fitSlots{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:6px}
+.fitSlot{display:flex;align-items:center;gap:6px;background:#141821;border:1px solid #222a38;border-radius:8px;padding:4px 8px}
+.fitSlotLabel{color:#8894a8;font-size:12px;width:44px;flex:0 0 44px}
+.fitSlot select{min-width:0;flex:1 1 auto}
+.fitSlot .fitCharge{flex:0 0 120px}
+.muted.warn{color:#f59e0b}
+
+/* ---- P4：机库选择面板 ---- */
+.hangarPane{margin:8px 0;border:1px solid #2a3242;border-radius:10px;background:#0f131b;padding:10px 12px}
+.hangarHead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.hangarList{display:flex;flex-direction:column;gap:4px;max-height:260px;overflow:auto}
+.hangarRow{display:flex;align-items:center;gap:10px;padding:4px 6px;border-radius:6px}
+.hangarRow:hover{background:#141a24}
+.hangarRow.flying{opacity:.55}
+.hangarName{min-width:180px}
+
+/* ---- 卡片网格（船员列表 / 召唤仓库）：一行多列，而不是每条占一整行 ---- */
+.gridCards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:8px;align-items:start}
+.crewCard,.stockCard{background:#141821;border:1px solid #222a38;border-radius:10px;padding:8px 10px}
+.crewCard:hover,.stockCard:hover{border-color:#31405a}
+.cardHead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.cardLine{font-size:12px;line-height:1.5;color:#c9d4e2}
+.cardLine.muted{color:#8894a8}
+.cardOps{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.stockCard{display:flex;align-items:center;gap:10px}
+.stockPick{flex:0 0 auto}
+.stockMain{flex:1 1 auto;min-width:0}
+.stockCard .cardHead b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---- 页签铺满一行 + 机库独占 + 配装台分区 ---- */
+.tabs{display:flex;gap:8px;padding:8px 20px;border-bottom:1px solid #222a38}
+.tab{flex:1 1 0;text-align:center;padding:8px 10px;font-size:13px}
+.tab:hover{border-color:#31405a}
+button.active{background:#16a34a !important;border-color:#16a34a !important;color:#fff !important}
+.hangarPane{display:flex;flex-direction:column;gap:8px;padding:10px 12px;margin:8px 0;border:1px solid #2a3242;border-radius:10px;background:#0f131b}
+.hangarHead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hangarCard{display:flex;align-items:center;gap:10px;background:#141821;border:1px solid #222a38;border-radius:10px;padding:8px 10px}
+.hangarCard.flying{opacity:.55}
+.hangarName{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fitToolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}
+.fitSlots{display:flex;flex-direction:column;gap:12px}
+.fitSection{border:1px solid #222a38;border-radius:10px;padding:8px 10px;background:#0f131b}
+.fitSectionHead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.fitSlotGrid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.fitSlotCard{display:flex;flex-direction:column;gap:6px;background:#141821;border:1px solid #222a38;border-radius:8px;padding:8px}
+.fitSlotTitle{color:#8894a8;font-size:12px}
+.fitSlotCard select{width:100%}
+
+/* ---- 配装台：可搜索下拉框 ---- */
+.pickerWrap{position:relative;display:inline-block;flex:1 1 auto;min-width:200px}
+.pickerInput{width:100%;box-sizing:border-box}
+.pickerList{position:absolute;z-index:40;left:0;right:0;top:calc(100% + 2px);max-height:280px;overflow:auto;background:#0f131b;border:1px solid #2a3242;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.pickerItem{padding:5px 8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pickerItem:hover{background:#1b2432}
+.pickerEmpty{padding:6px 8px}
+.fitSlotCard .pickerList{top:calc(100% - 44px)}
+
+/* 配装台卡片里的搜索下拉：贴住输入框（覆盖早前的临时偏移） */
+.fitSlotCard{position:relative}
+.fitSlotCard .pickerWrap{display:block;width:100%}
+.fitSlotCard .pickerList{top:calc(100% + 2px)}
+
+/* ---- 配装台：像原生下拉，但面板顶部带搜索框 ---- */
+.nfSelect{position:relative;display:block;width:100%;box-sizing:border-box}
+.nfSelectButton{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#232a34;color:#dbe3ee;border:1px solid #333d4b;border-radius:6px;padding:8px 12px;cursor:pointer;min-height:34px;box-sizing:border-box;font-size:14px}
+.nfSelectButton:hover{border-color:#41506a}
+.nfSelectValue{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nfCaret{color:#8894a8;flex:0 0 auto}
+.nfSelectPanel{position:absolute;z-index:60;left:0;right:0;top:calc(100% + 3px);background:#0f131b;border:1px solid #2a3242;border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,.5);display:flex;flex-direction:column;max-height:320px;box-sizing:border-box}
+.nfSelectPanel[hidden]{display:none}
+.nfSelectSearch{margin:6px;padding:6px 8px;border-radius:6px;border:1px solid #333d4b;background:#0d1117;color:#dfe6f2;font-size:13px;box-sizing:border-box}
+.nfSelectList{overflow:auto;flex:1 1 auto;padding-bottom:4px}
+.nfSelectItem{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;cursor:pointer;font-size:13px}
+.nfSelectItem:hover,.nfSelectItem.hl{background:#1b2432}
+.nfSelectName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nfSelectMeta{flex:0 0 auto;font-size:12px}
+.nfSelectEmpty{padding:6px 8px;font-size:13px}
+
+/* 配装台：槽位复制/粘贴 + 弹药小下拉 */
+.fitSlotOps{display:flex;gap:6px;margin-top:4px}
+.fitSlotOps button{font-size:12px;padding:3px 8px}
+.fitSlotOps button:disabled{opacity:.5;cursor:default}
+.nfSelectSmall .nfSelectButton{padding:5px 8px;min-height:28px;font-size:12px}
+.nfSelectSmall .nfSelectSearch{font-size:12px}
+
+/* 配装台：状态条固定在顶部，超预算标黄 */
+.fitSummaryBar{position:sticky;top:0;z-index:20;background:#0f131b;border:1px solid #222a38;border-radius:8px;padding:6px 10px;font-size:13px;margin-bottom:8px}
+.fitSummaryBar.warn{border-color:#b45309;color:#fbbf24}
+
+/* 版本不一致警示条（旧后端 + 新面板） */
+.versionWarn{margin:8px 20px 0;padding:8px 12px;border:1px solid #b45309;border-radius:8px;background:#1f1300;color:#fbbf24;font-size:13px}
+.versionWarn[hidden]{display:none}
+
+/* 下拉列表底部的匹配/滚动提示 */
+.nfSelectMore{padding:4px 8px;font-size:12px;border-top:1px solid #1b2432}
+.nfSelectList{max-height:320px}
+
+/* 库存卡片：点选变绿、在用蓝、丢失红（不再用勾选框） */
+.stockCard{cursor:pointer;transition:border-color .12s,background .12s}
+.stockCard.sel{border-color:#16a34a;background:#0f1d15;box-shadow:0 0 0 2px rgba(22,163,74,.25)}
+.stockCard.inuse{border-color:#2563eb;background:#0e1626}
+.stockCard.lost{border-color:#b91c1c;background:#1f1010;opacity:.8}
+.stockCard.lost .cardHead b{text-decoration:line-through}
+.stockCard.sel .cardHead b{color:#4ade80}
+.stockCard.inuse .cardHead b{color:#93c5fd}
+.stockCard.lost .cardHead b{color:#fca5a5}
+
+/* 已丢失卡片的「重购」按钮 */
+.stockCard .rebuy{border-color:#b91c1c;color:#fca5a5}
+.stockCard .rebuy:hover{background:#3b1212;border-color:#ef4444;color:#fff}
+
+/* 召唤方案窗口 */
+.planCreate{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.planRow{border:1px solid #222a38;border-radius:8px;padding:6px 10px;margin:4px 0;background:#141821}
+
+/* 仓库工具栏分隔 + 方案卡片 */
+.stockBarDivider{width:1px;height:22px;background:#2a3242;margin:0 4px}
+.planCard{background:#141821;border:1px solid #222a38;border-radius:10px;padding:8px 10px}
+.planCard:hover{border-color:#31405a}

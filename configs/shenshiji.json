@@ -1,0 +1,206 @@
+{
+  "id": "shenshiji",
+  "name": "shenshiji",
+  "enabled": true,
+  "count": 1,
+  "job": "mining",
+  "skills": "all",
+  "corporation": "auto",
+  "wing": null,
+  "squad": null,
+  "autoMineOnSpawn": false,
+  "fit": {
+    "source": "inline",
+    "hull": {
+      "typeID": 11567,
+      "name": "Avatar"
+    },
+    "modules": [
+      {
+        "slot": "rig slot 1",
+        "flagID": 93,
+        "typeID": 31061,
+        "name": "Capital Trimark Armor Pump II",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 2",
+        "flagID": 29,
+        "typeID": 41118,
+        "name": "Dark Blood Dual Giga Beam Laser",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 5",
+        "flagID": 32,
+        "typeID": 41118,
+        "name": "Dark Blood Dual Giga Beam Laser",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 7",
+        "flagID": 18,
+        "typeID": 15810,
+        "name": "Imperial Navy Heat Sink",
+        "quantity": 1
+      },
+      {
+        "slot": "med slot 0",
+        "flagID": 19,
+        "typeID": 15290,
+        "name": "Cormack's Modified Tracking Computer",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 2",
+        "flagID": 94,
+        "typeID": 31061,
+        "name": "Capital Trimark Armor Pump II",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 6",
+        "flagID": 33,
+        "typeID": 41118,
+        "name": "Dark Blood Dual Giga Beam Laser",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 3",
+        "flagID": 14,
+        "typeID": 41456,
+        "name": "CONCORD 25000mm Steel Plates",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 0",
+        "flagID": 11,
+        "typeID": 41200,
+        "name": "Shadow Serpentis Damage Control",
+        "quantity": 1
+      },
+      {
+        "slot": "cargo slot 23",
+        "flagID": 23,
+        "typeID": 41488,
+        "name": "Dark Blood Capital Cap Battery",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 3",
+        "flagID": 30,
+        "typeID": 41118,
+        "name": "Dark Blood Dual Giga Beam Laser",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 4",
+        "flagID": 15,
+        "typeID": 41456,
+        "name": "CONCORD 25000mm Steel Plates",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 0",
+        "flagID": 27,
+        "typeID": 24550,
+        "name": "'Judgment' Electromagnetic Doomsday",
+        "quantity": 1
+      },
+      {
+        "slot": "med slot 1",
+        "flagID": 20,
+        "typeID": 15290,
+        "name": "Cormack's Modified Tracking Computer",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 5",
+        "flagID": 16,
+        "typeID": 15810,
+        "name": "Imperial Navy Heat Sink",
+        "quantity": 1
+      },
+      {
+        "slot": "cargo slot 22",
+        "flagID": 22,
+        "typeID": 41488,
+        "name": "Dark Blood Capital Cap Battery",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 2",
+        "flagID": 13,
+        "typeID": 14074,
+        "name": "Shadow Serpentis Multispectrum Energized Membrane",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 4",
+        "flagID": 31,
+        "typeID": 41118,
+        "name": "Dark Blood Dual Giga Beam Laser",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 6",
+        "flagID": 17,
+        "typeID": 15810,
+        "name": "Imperial Navy Heat Sink",
+        "quantity": 1
+      },
+      {
+        "slot": "med slot 2",
+        "flagID": 21,
+        "typeID": 41494,
+        "name": "Dark Blood Capital Capacitor Booster",
+        "quantity": 1
+      },
+      {
+        "slot": "low slot 1",
+        "flagID": 12,
+        "typeID": 14074,
+        "name": "Shadow Serpentis Multispectrum Energized Membrane",
+        "quantity": 1
+      },
+      {
+        "slot": "rig slot 0",
+        "flagID": 92,
+        "typeID": 31061,
+        "name": "Capital Trimark Armor Pump II",
+        "quantity": 1
+      },
+      {
+        "slot": "hi slot 1",
+        "flagID": 28,
+        "typeID": 41118,
+        "name": "Dark Blood Dual Giga Beam Laser",
+        "quantity": 1
+      },
+      {
+        "slot": "cargo slot 5",
+        "flagID": 5,
+        "typeID": 41490,
+        "name": "Navy Cap Booster 3200",
+        "quantity": 60
+      },
+      {
+        "slot": "cargo slot 5",
+        "flagID": 5,
+        "typeID": 41334,
+        "name": "Gleam XL",
+        "quantity": 60
+      },
+      {
+        "slot": "cargo slot 5",
+        "flagID": 5,
+        "typeID": 28999,
+        "name": "Optimal Range Script",
+        "quantity": 2
+      }
+    ]
+  },
+  "behavior": {
+    "npcMode": false
+  }
+}

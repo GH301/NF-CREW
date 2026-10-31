@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 3,
+  "id": "nf-crew",
+  "displayName": "NFCrew · 船员编队",
+  "version": "1.0.0",
+  "description": "NFCrew · 船员编队：一批真角色、真舰船的虚拟船员听你指挥——召唤时点亮诱导力场、4 秒后跳进来，解散时诱导跳走；采矿（自动选矿/分矿/靠近/压缩后交进你的矿舱）、战斗（齐射结算/导弹/集火/追击）、后勤（遥修/传电）、特殊（EWAR/吸电/中和/指挥脉冲/立体炸弹/末日）。1.0.0 起含「召唤仓库」库存系统（订购 80% 卖价、存入/取出/卖出/重购/对账/方案）与配装台（可搜索下拉、CPU/PG/挂点/无人机/改装件校验、DPS·EHP 模拟）。面板 /crewmine ui（127.0.0.1:8741，每账号独立令牌）；非 GM 角色用 !crewmine <参数>。",
+  "kind": "loader",
+  "supportedBackends": [
+    "native"
+  ],
+  "activation": {
+    "strategy": "loader_rename"
+  },
+  "restart": "game_server",
+  "category": "玩法",
+  "tags": [
+    "采矿",
+    "战斗",
+    "遥修",
+    "编队",
+    "多账号",
+    "面板",
+    "NPC"
+  ],
+  "compatibility": {
+    "evejsVersions": [
+      "0.12.9",
+      "261018.1",
+      "261028.1"
+    ]
+  },
+  "binding": {
+    "launcher": "evejs-launcher",
+    "launcherKeyId": "867242e85fc5",
+    "enforce": "observe"
+  }
+}
